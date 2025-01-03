@@ -1,15 +1,11 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 
 const router = express.Router()
-
-interface TokenExchangeRequest {
-  public_token: string
-}
 
 // Store access tokens in memory (use a proper database in production)
 const accessTokens = new Map<string, string>()
 
-router.post('/exchange', async (req: Request<{}, {}, TokenExchangeRequest>, res: Response) => {
+router.post('/exchange', async (req, res) => {
   try {
     const { public_token } = req.body
 
@@ -45,7 +41,7 @@ router.post('/exchange', async (req: Request<{}, {}, TokenExchangeRequest>, res:
   }
 })
 
-router.get('/records', async (_req: Request, res: Response) => {
+router.get('/records', async (_req, res) => {
   try {
     // In production, get the user ID from the session and look up their token
     const accessToken = accessTokens.get('user_id')

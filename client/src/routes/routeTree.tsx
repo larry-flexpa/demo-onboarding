@@ -2,7 +2,7 @@ import { createRootRoute, createRoute } from '@tanstack/react-router'
 import { WelcomeScreen } from '../pages/WelcomeScreen'
 import { PersonalInfoForm } from '../pages/PersonalInfoForm'
 import { HealthQuestionnaire } from '../pages/HealthQuestionnaire'
-import { FlexpaIntegration } from '../pages/FlexpaIntegration'
+import { RecordsIntegration } from '../pages/RecordsIntegration'
 import { SuccessScreen } from '../pages/SuccessScreen'
 
 const rootRoute = createRootRoute()
@@ -25,10 +25,10 @@ const healthQuestionnaireRoute = createRoute({
   component: HealthQuestionnaire,
 })
 
-const flexpaIntegrationRoute = createRoute({
+const recordsIntegrationRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/connect-health-records',
-  component: FlexpaIntegration,
+  path: '/records',
+  component: RecordsIntegration,
 })
 
 const successRoute = createRoute({
@@ -41,6 +41,6 @@ export const routeTree = rootRoute.addChildren([
   indexRoute,
   personalInfoRoute,
   healthQuestionnaireRoute,
-  flexpaIntegrationRoute,
+  recordsIntegrationRoute,
   successRoute,
 ]) 

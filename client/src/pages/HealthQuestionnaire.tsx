@@ -41,7 +41,7 @@ export function HealthQuestionnaire() {
         throw new Error('Failed to submit health questionnaire')
       }
 
-      navigate({ to: '/connect-health-records' })
+      navigate({ to: '/records' })
     } catch (error) {
       console.error('Failed to submit health questionnaire:', error)
     }

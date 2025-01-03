@@ -1,11 +1,21 @@
 import { useNavigate } from '@tanstack/react-router'
+import FlexpaLink from '@flexpa/link'
 
-export function FlexpaIntegration() {
+export function RecordsIntegration() {
   const navigate = useNavigate()
 
   const open = () => {
-    console.log('Flexpa Link will be integrated here')
-    navigate({ to: '/success' })
+    FlexpaLink.create({
+      publishableKey: `${import.meta.env.VITE_FLEXPA_PUBLISHABLE_KEY}`,
+      user: { externalId: crypto.randomUUID() },
+      usage: 'MULTIPLE',
+      onSuccess: async (publicToken: string) => {
+        await fetch('/api/flexpa/exchange', { method: 'POST', body: JSON.stringify({ publicToken }) })
+        navigate({ to: '/success' })
+      }
+    })
+
+    FlexpaLink.open();
   }
 
   return (
