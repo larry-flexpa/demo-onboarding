@@ -1,73 +1,67 @@
-import express from 'express'
+import express from 'express';
 
-const router = express.Router()
+const router = express.Router();
 
-// Store access tokens in memory (use a proper database in production)
-const accessTokens = new Map<string, string>()
+const accessTokens = new Map<string, string>();
 
 router.post('/exchange', async (req, res) => {
-  try {
-    const { public_token } = req.body
+    try {
+        const { publicToken } = req.body;
 
-    if (!public_token) {
-      res.status(400).json({ error: 'Public token is required' })
-      return
+        if (!publicToken) {
+            res.status(400).send('Missing publicToken');
+            return
+        }
+
+        const response = await fetch('https://api.flexpa.com/link/exchange', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ public_token: publicToken, secret_key: process.env.FLEXPA_SECRET_KEY }),
+        })
+
+        if (!response.ok) {
+            throw new Error('Failed to exchange public token');
+        }
+
+        const { access_token } = await response.json() as { access_token: string };
+
+        accessTokens.set('token', access_token);
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Failed to exchange public token');
     }
-
-    const response = await fetch('https://api.flexpa.com/link/exchange', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        public_token,
-        secret_key: process.env.FLEXPA_SECRET_KEY!
-      })
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to exchange token')
-    }
-
-    const { access_token } = await response.json() as { access_token: string }
-    
-    // In a production environment, store this securely in a database
-    accessTokens.set('user_id', access_token) // Replace with actual user ID
-
-    res.json({ success: true })
-  } catch (error) {
-    console.error('Flexpa token exchange error:', error)
-    res.status(500).json({ error: 'Failed to exchange token' })
-  }
 })
 
-router.get('/records', async (_req, res) => {
-  try {
-    // In production, get the user ID from the session and look up their token
-    const accessToken = accessTokens.get('user_id')
+router.get('/records', async(req, res) => {
+    try {
+        const accessToken = accessTokens.get('token');
 
-    if (!accessToken) {
-      res.status(401).json({ error: 'Unauthorized' })
-      return
+        if(!accessToken) {
+            res.status(400).send('Missing access token');
+            return;
+        }
+
+        const response = await fetch("https://api.flexpa.com/fhir/Patient/$PATIENT_ID/$everything", {
+            headers: {
+              "content-type": "application/json",
+              "authorization": `Bearer ${accessToken}`,
+            },
+          });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch records');
+        }
+
+        const records = await response.json();
+        res.send(records);
+    } catch (error) {
+        console.error('Failed to fetch health records', error);
+        res.status(500).json({error: 'Failed to fetch health records'});
     }
-
-    const response = await fetch('https://api.flexpa.com/fhir/Patient/$everything', {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Accept': 'application/json'
-      }
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch records')
-    }
-
-    const records = await response.json()
-    res.json(records)
-  } catch (error) {
-    console.error('Failed to fetch health records:', error)
-    res.status(500).json({ error: 'Failed to fetch health records' })
-  }
 })
 
-export default router 
+export default router;

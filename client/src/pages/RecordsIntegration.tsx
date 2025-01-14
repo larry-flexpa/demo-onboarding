@@ -1,17 +1,17 @@
-import { useNavigate } from '@tanstack/react-router'
-import FlexpaLink from '@flexpa/link'
+import { useNavigate } from '@tanstack/react-router';
+import FlexpaLink from '@flexpa/link';
 
 export function RecordsIntegration() {
-  const navigate = useNavigate()
+  const navigate = useNavigate(); 
 
   const open = () => {
     FlexpaLink.create({
       publishableKey: `${import.meta.env.VITE_FLEXPA_PUBLISHABLE_KEY}`,
-      user: { externalId: crypto.randomUUID() },
       usage: 'MULTIPLE',
+      user: { externalId: crypto.randomUUID() },
       onSuccess: async (publicToken: string) => {
-        await fetch('/api/flexpa/exchange', { method: 'POST', body: JSON.stringify({ publicToken }) })
-        navigate({ to: '/success' })
+        await fetch(`${import.meta.env.VITE_API_URL}/api/flexpa/exchange`, { method: 'POST', body: JSON.stringify({ publicToken }) })
+        navigate({ to: '/success' });
       }
     })
 
@@ -64,8 +64,8 @@ export function RecordsIntegration() {
 
           <div className="flex justify-center">
             <button
-              onClick={open}
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+              onClick={open}
             >
               Launch Link
             </button>
