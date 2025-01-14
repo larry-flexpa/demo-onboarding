@@ -29,8 +29,13 @@ export function SuccessScreen() {
                   <p className="text-sm font-medium text-blue-900">Motor Vehicle Accident</p>
                   <p className="text-xs text-blue-700">ICD-10: V43.52XA - Driver injured in collision with car</p>
                   <p className="text-xs text-blue-600">Provider: Dr. Sarah Chen (NPI: 1234567890)</p>
+                  <p className="text-xs text-blue-600">Location: Intersection of Market St & 4th St, San Francisco</p>
                 </div>
-                <span className="text-sm text-blue-600">March 15, 2024</span>
+                <div className="text-right">
+                  <span className="text-sm text-blue-600">March 15, 2024</span>
+                  <p className="text-xs text-blue-600 mt-1">Total: $2,850</p>
+                  <p className="text-xs text-blue-600">Your Cost: $250</p>
+                </div>
               </div>
               <div className="flex items-center justify-between border-b border-blue-100 pb-2">
                 <div>
@@ -38,8 +43,13 @@ export function SuccessScreen() {
                   <p className="text-xs text-blue-700">CPT: 99285 - Emergency dept visit, high severity</p>
                   <p className="text-xs text-blue-700">CPT: 73090 - X-ray examination of forearm</p>
                   <p className="text-xs text-blue-600">Provider: Dr. Michael Torres (NPI: 9876543210)</p>
+                  <p className="text-xs text-blue-600">Location: SF General Hospital Emergency Department</p>
                 </div>
-                <span className="text-sm text-blue-600">March 15, 2024</span>
+                <div className="text-right">
+                  <span className="text-sm text-blue-600">March 15, 2024</span>
+                  <p className="text-xs text-blue-600 mt-1">Total: $8,475</p>
+                  <p className="text-xs text-blue-600">Your Cost: $750</p>
+                </div>
               </div>
               <div className="flex items-center justify-between border-b border-blue-100 pb-2">
                 <div>
@@ -48,8 +58,13 @@ export function SuccessScreen() {
                   <p className="text-xs text-blue-700">ICD-10: S60.22XA - Contusion of left wrist</p>
                   <p className="text-xs text-blue-700">ICD-10: S43.401A - Sprain of right shoulder joint</p>
                   <p className="text-xs text-blue-600">Provider: Dr. Michael Torres (NPI: 9876543210)</p>
+                  <p className="text-xs text-blue-600">Location: SF General Hospital Trauma Unit</p>
                 </div>
-                <span className="text-sm text-blue-600">March 15, 2024</span>
+                <div className="text-right">
+                  <span className="text-sm text-blue-600">March 15, 2024</span>
+                  <p className="text-xs text-blue-600 mt-1">Total: $4,250</p>
+                  <p className="text-xs text-blue-600">Your Cost: $400</p>
+                </div>
               </div>
               <div className="flex items-center justify-between">
                 <div>
@@ -58,8 +73,13 @@ export function SuccessScreen() {
                   <p className="text-xs text-blue-700">CPT: 01810 - Anesthesia for forearm/wrist surgery</p>
                   <p className="text-xs text-blue-600">Surgeon: Dr. Emily Rodriguez (NPI: 2468101214)</p>
                   <p className="text-xs text-blue-600">Anesthesiologist: Dr. James Wilson (NPI: 1357924680)</p>
+                  <p className="text-xs text-blue-600">Location: UCSF Medical Center - Orthopedic Surgery</p>
                 </div>
-                <span className="text-sm text-blue-600">March 16, 2024</span>
+                <div className="text-right">
+                  <span className="text-sm text-blue-600">March 16, 2024</span>
+                  <p className="text-xs text-blue-600 mt-1">Total: $32,850</p>
+                  <p className="text-xs text-blue-600">Your Cost: $2,500</p>
+                </div>
               </div>
             </div>
           </div>
