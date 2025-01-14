@@ -35,7 +35,7 @@ export function PersonalInfoForm() {
       const result = await response.json()
       console.log('Server response:', result)
 
-      navigate({ to: '/health-questionnaire' })
+      navigate({ to: '/records' })
     } catch (error) {
       console.error('Submission error details:', error)
       throw error // Re-throw to let the form handler deal with it
@@ -48,17 +48,6 @@ export function PersonalInfoForm() {
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900">Personal Information</h2>
           <p className="text-gray-600 mt-1">Please provide your basic details</p>
-        </div>
-
-        {/* Progress indicator */}
-        <div className="mb-8">
-          <div className="flex items-center gap-2">
-            <div className="h-2 flex-1 rounded-full bg-primary-500" />
-            <div className="h-2 flex-1 rounded-full bg-gray-200" />
-            <div className="h-2 flex-1 rounded-full bg-gray-200" />
-            <div className="h-2 flex-1 rounded-full bg-gray-200" />
-          </div>
-          <p className="text-sm text-gray-600 mt-2">Step 1 of 4</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

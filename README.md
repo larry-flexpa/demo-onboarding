@@ -1,4 +1,4 @@
-# HealthConnect Onboarding Application
+# YoCierge Onboarding Application
 
 A modern healthcare onboarding web application built with React, TypeScript, and Flexpa integration.
 
